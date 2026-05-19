@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ChevronDown, Plus } from "lucide-react";
+import { Chip } from "@/components/caliber/chip";
 import { JobCard } from "@/components/caliber/job-card";
 import { Segmented } from "@/components/caliber/segmented";
 import { Button } from "@/components/ui/button";
@@ -150,36 +151,6 @@ export default function DashboardPage() {
         ))}
       </div>
     </div>
-  );
-}
-
-function Chip({
-  children,
-  on,
-  onClick,
-}: {
-  children: React.ReactNode;
-  on?: boolean;
-  onClick?: () => void;
-}) {
-  const interactive = !!onClick;
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={!interactive}
-      className={[
-        "inline-flex h-[26px] items-center gap-1.5 rounded-full border px-2.5 text-[12px] transition-colors",
-        on
-          ? "border-border-strong bg-accent-soft text-text"
-          : "border-border bg-background text-text-muted",
-        interactive
-          ? "cursor-pointer hover:border-border-strong hover:text-text"
-          : "cursor-default",
-      ].join(" ")}
-    >
-      {children}
-    </button>
   );
 }
 
