@@ -65,17 +65,17 @@ const TIERS: Tier[] = [
 
 export function PricingGrid() {
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
       {TIERS.map((t) => (
         <div
           key={t.name}
           className={cn(
-            "relative flex flex-col rounded-lg border border-border bg-background p-7",
+            "relative flex flex-col rounded-lg border border-border bg-background p-6 sm:p-7",
             t.featured && "border-text",
           )}
         >
           {t.featured && (
-            <div className="absolute -top-2.5 left-7 inline-flex h-[22px] items-center rounded-[4px] bg-text px-2 text-[11px] font-medium text-background">
+            <div className="absolute -top-2.5 left-6 inline-flex h-[22px] items-center rounded-[4px] bg-text px-2 text-[11px] font-medium text-background sm:left-7">
               Most popular
             </div>
           )}

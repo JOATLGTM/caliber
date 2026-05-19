@@ -5,10 +5,10 @@ import { COVER_LETTERS, shortDate } from "@/lib/mock-data";
 
 export default function CoverLettersPage() {
   return (
-    <div className="w-full max-w-[1200px] px-8 pb-[60px] pt-7">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.025em]">
+    <div className="w-full max-w-[1200px] px-4 pb-[60px] pt-7 md:px-8">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="font-display text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[26px]">
             Cover letters
           </h1>
           <p className="mt-1.5 text-[14px] text-text-muted">
@@ -34,7 +34,7 @@ export default function CoverLettersPage() {
           />
         </div>
       ) : (
-        <div className="mt-7 grid grid-cols-2 gap-3.5">
+        <div className="mt-7 grid grid-cols-1 gap-3.5 md:grid-cols-2">
           {COVER_LETTERS.map((c) => (
             <article
               key={c.id}

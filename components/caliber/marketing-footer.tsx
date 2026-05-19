@@ -2,11 +2,11 @@ import Link from "next/link";
 
 export function MarketingFooter() {
   return (
-    <footer className="flex items-center justify-between border-t border-border px-8 py-8 text-[12.5px] text-text-muted">
+    <footer className="flex flex-col items-start gap-4 border-t border-border px-4 py-8 text-[12.5px] text-text-muted md:flex-row md:items-center md:justify-between md:px-8">
       <div className="font-display text-[18px] font-semibold tracking-[-0.025em] text-text">
         Caliber
       </div>
-      <div className="flex gap-[18px]">
+      <div className="flex flex-wrap gap-x-[18px] gap-y-1.5">
         <Link href="/pricing" className="hover:text-text">
           Pricing
         </Link>

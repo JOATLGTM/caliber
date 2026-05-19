@@ -24,8 +24,8 @@ export default function PricingPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="mx-auto max-w-[1180px] px-8 pb-10 pt-20 text-center">
-        <h1 className="mx-auto font-display text-[48px] font-semibold leading-[1.05] tracking-[-0.03em] [max-width:16ch]">
+      <section className="mx-auto max-w-[1180px] px-4 pb-10 pt-20 text-center md:px-8">
+        <h1 className="mx-auto font-display text-[36px] font-semibold leading-[1.05] tracking-[-0.03em] [max-width:16ch] sm:text-[48px]">
           Simple, honest pricing.
         </h1>
         <p className="mx-auto mt-3.5 max-w-[50ch] text-[17px] text-text-muted">
@@ -34,13 +34,13 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing grid */}
-      <section className="mx-auto max-w-[1180px] px-8 pb-20">
+      <section className="mx-auto max-w-[1180px] px-4 pb-20 md:px-8">
         <PricingGrid />
       </section>
 
       {/* Pricing FAQ */}
-      <section className="mx-auto max-w-[1180px] px-8 py-20">
-        <h2 className="mb-3.5 font-display text-[28px] font-semibold tracking-[-0.025em]">
+      <section className="mx-auto max-w-[1180px] px-4 py-20 md:px-8">
+        <h2 className="mb-3.5 font-display text-[24px] font-semibold tracking-[-0.025em] sm:text-[28px]">
           Pricing FAQ
         </h2>
         <FAQ items={PRICING_FAQ} />

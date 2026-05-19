@@ -79,10 +79,10 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="w-full max-w-[1200px] px-8 pb-[60px] pt-7">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.025em]">
+    <div className="w-full max-w-[1200px] px-4 pb-[60px] pt-7 md:px-8">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="font-display text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[26px]">
             {greeting}, {firstName}
           </h1>
           <p className="mt-1.5 text-[14px] text-text-muted">
@@ -96,7 +96,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div className="my-[18px] mb-7 mt-[18px] grid grid-cols-4 gap-3">
+      <div className="my-[18px] mb-7 mt-[18px] grid grid-cols-2 gap-3 md:grid-cols-4">
         {STAT_CARDS.map((s) => (
           <div
             key={s.label}
@@ -139,7 +139,7 @@ export default function DashboardPage() {
         <Chip>
           Posted within 7d <ChevronDown size={12} />
         </Chip>
-        <span className="ml-auto text-[12px] text-text-faint">
+        <span className="w-full text-[12px] text-text-faint sm:ml-auto sm:w-auto">
           {jobs.length} matches
         </span>
       </div>

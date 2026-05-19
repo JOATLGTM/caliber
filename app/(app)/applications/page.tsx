@@ -105,18 +105,18 @@ export default function ApplicationsPage() {
   const offerCount = grouped["Offer/Closed"].filter((a) => a.status === "Offer").length;
 
   return (
-    <div className="w-full px-8 pb-[60px] pt-7">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.025em]">
+    <div className="w-full px-4 pb-[60px] pt-7 md:px-8">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="font-display text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[26px]">
             Applications
           </h1>
           <p className="mt-1.5 text-[14px] text-text-muted">
             {apps.length} tracked · {interviewCount} in interview · {offerCount} offer
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="relative">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="relative w-full sm:w-auto">
             <Search
               size={13}
               aria-hidden
@@ -126,7 +126,7 @@ export default function ApplicationsPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search applications"
-              className="h-8 w-[240px] pl-8 text-[13px]"
+              className="h-8 w-full pl-8 text-[13px] sm:w-[240px]"
             />
           </div>
           <Button variant="outline" size="sm">
@@ -144,13 +144,7 @@ export default function ApplicationsPage() {
         onDragEnd={handleDragEnd}
         onDragCancel={() => setActiveId(null)}
       >
-        <div
-          className="mt-6 grid gap-3"
-          style={{
-            gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
-            minHeight: "calc(100vh - 220px)",
-          }}
-        >
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:min-h-[calc(100vh_-_220px)]">
           {COLUMNS.map((col) => (
             <Column key={col} id={col} count={grouped[col].length}>
               {grouped[col].map((a) => (

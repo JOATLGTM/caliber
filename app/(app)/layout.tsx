@@ -8,10 +8,10 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid min-h-screen grid-cols-[240px_1fr] bg-background">
+    <div className="grid min-h-screen grid-cols-1 bg-background md:grid-cols-[240px_1fr]">
       <AppSidebar applicationsCount={APPLICATIONS.length} />
       <div className="flex min-w-0 flex-col">
-        <AppHeader />
+        <AppHeader applicationsCount={APPLICATIONS.length} />
         {children}
       </div>
     </div>

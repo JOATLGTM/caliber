@@ -100,7 +100,7 @@ export default function OnboardingPage() {
       </div>
 
       {step === 1 && (
-        <div className="rounded-lg border border-border bg-background p-7">
+        <div className="rounded-lg border border-border bg-background p-5 sm:p-7">
           <h1 className="font-display text-[24px] font-semibold tracking-[-0.025em]">
             Welcome to Caliber.
           </h1>
@@ -121,7 +121,7 @@ export default function OnboardingPage() {
       )}
 
       {step === 2 && (
-        <div className="rounded-lg border border-border bg-background p-7">
+        <div className="rounded-lg border border-border bg-background p-5 sm:p-7">
           <h1 className="font-display text-[24px] font-semibold tracking-[-0.025em]">
             Upload your resume
           </h1>
@@ -132,7 +132,7 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={() => fileInput.current?.click()}
-            className="mt-4 w-full rounded-lg border border-dashed border-border-strong bg-bg-elev p-12 text-center text-[13.5px] text-text-muted transition-colors hover:bg-bg-elev-2"
+            className="mt-4 w-full rounded-lg border border-dashed border-border-strong bg-bg-elev p-8 text-center text-[13.5px] text-text-muted transition-colors hover:bg-bg-elev-2 sm:p-12"
           >
             {resumeName ? (
               <>
@@ -178,7 +178,7 @@ export default function OnboardingPage() {
             className="hidden"
           />
 
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <button
               type="button"
               onClick={next}
@@ -199,7 +199,7 @@ export default function OnboardingPage() {
       )}
 
       {step === 3 && (
-        <div className="rounded-lg border border-border bg-background p-7">
+        <div className="rounded-lg border border-border bg-background p-5 sm:p-7">
           <h1 className="font-display text-[24px] font-semibold tracking-[-0.025em]">
             Set preferences
           </h1>
@@ -254,7 +254,7 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-between">
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
             <Button variant="outline" onClick={back}>
               <ArrowLeft size={13} aria-hidden /> Back
             </Button>

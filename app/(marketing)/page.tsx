@@ -112,7 +112,7 @@ export default function LandingPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="mx-auto max-w-[1180px] px-8 pb-20 pt-20">
+      <section className="mx-auto max-w-[1180px] px-4 pb-20 pt-20 md:px-8">
         <h1 className="font-display font-semibold leading-[1.02] tracking-[-0.035em] [font-size:clamp(40px,6vw,64px)] [max-width:18ch]">
           Stop applying to 100 jobs.
           <br />
@@ -135,7 +135,7 @@ export default function LandingPage() {
       </section>
 
       {/* Social proof */}
-      <section className="mx-auto max-w-[1180px] px-8 pb-12">
+      <section className="mx-auto max-w-[1180px] px-4 pb-12 md:px-8">
         <div className="mb-[18px] text-[12px] uppercase tracking-[0.06em] text-text-faint">
           Trusted by job seekers from
         </div>
@@ -149,9 +149,9 @@ export default function LandingPage() {
       {/* How it works */}
       <section
         id="how-it-works"
-        className="mx-auto max-w-[1180px] px-8 py-20"
+        className="mx-auto max-w-[1180px] px-4 py-20 md:px-8"
       >
-        <h2 className="mb-9 font-display text-[32px] font-semibold tracking-[-0.025em]">
+        <h2 className="mb-9 font-display text-[28px] font-semibold tracking-[-0.025em] sm:text-[32px]">
           How it works
         </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -170,8 +170,8 @@ export default function LandingPage() {
       </section>
 
       {/* Features grid */}
-      <section className="mx-auto max-w-[1180px] px-8 py-20">
-        <h2 className="mb-7 font-display text-[32px] font-semibold tracking-[-0.025em]">
+      <section className="mx-auto max-w-[1180px] px-4 py-20 md:px-8">
+        <h2 className="mb-7 font-display text-[28px] font-semibold tracking-[-0.025em] sm:text-[32px]">
           Built for the work, not the volume.
         </h2>
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
@@ -188,8 +188,8 @@ export default function LandingPage() {
       </section>
 
       {/* What we do / don't */}
-      <section className="mx-auto max-w-[1180px] px-8 py-20">
-        <h2 className="mb-7 font-display text-[32px] font-semibold tracking-[-0.025em]">
+      <section className="mx-auto max-w-[1180px] px-4 py-20 md:px-8">
+        <h2 className="mb-7 font-display text-[28px] font-semibold tracking-[-0.025em] sm:text-[32px]">
           The opposite of mass apply.
         </h2>
         <div className="grid grid-cols-1 overflow-hidden rounded-lg border border-border md:grid-cols-2 md:divide-x md:divide-border">
@@ -239,9 +239,9 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing preview */}
-      <section className="mx-auto max-w-[1180px] px-8 py-20">
-        <div className="mb-7 flex items-end justify-between">
-          <h2 className="font-display text-[32px] font-semibold tracking-[-0.025em]">
+      <section className="mx-auto max-w-[1180px] px-4 py-20 md:px-8">
+        <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
+          <h2 className="font-display text-[28px] font-semibold tracking-[-0.025em] sm:text-[32px]">
             Simple pricing.
           </h2>
           <Link
@@ -255,8 +255,8 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-[1180px] px-8 py-20">
-        <h2 className="mb-3.5 font-display text-[32px] font-semibold tracking-[-0.025em]">
+      <section className="mx-auto max-w-[1180px] px-4 py-20 md:px-8">
+        <h2 className="mb-3.5 font-display text-[28px] font-semibold tracking-[-0.025em] sm:text-[32px]">
           Frequently asked.
         </h2>
         <FAQ items={LANDING_FAQ} />
@@ -264,8 +264,8 @@ export default function LandingPage() {
 
       {/* Final CTA */}
       <section className="border-t border-border">
-        <div className="mx-auto max-w-[1180px] px-8 py-20 text-center">
-          <h2 className="font-display text-[36px] font-semibold tracking-[-0.03em]">
+        <div className="mx-auto max-w-[1180px] px-4 py-20 text-center md:px-8">
+          <h2 className="font-display text-[28px] font-semibold tracking-[-0.03em] sm:text-[36px]">
             Ready to apply smarter?
           </h2>
           <p className="mt-3 text-[16px] text-text-muted">

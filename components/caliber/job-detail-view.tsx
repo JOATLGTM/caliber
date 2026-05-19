@@ -45,7 +45,7 @@ export function JobDetailView({
   const changedCount = resumeDiff.bullets.filter((b) => b.changed).length;
 
   return (
-    <div className="w-full max-w-[1280px] px-8 pb-[60px] pt-7">
+    <div className="w-full max-w-[1280px] px-4 pb-[60px] pt-7 md:px-8">
       {/* Breadcrumb */}
       <div className="mb-2 flex items-center gap-1.5 text-[12.5px] text-text-faint">
         <Link
@@ -59,7 +59,7 @@ export function JobDetailView({
       </div>
 
       {/* Title row */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col items-start gap-4 lg:flex-row lg:justify-between">
         <div className="min-w-0">
           <div className="mb-1.5 flex items-center gap-3">
             <div className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-md border border-border bg-bg-elev-2 font-display text-[16px] font-semibold tracking-[-0.01em] text-text">
@@ -67,7 +67,7 @@ export function JobDetailView({
             </div>
             <div className="min-w-0">
               <div className="text-[13px] text-text-muted">{job.company}</div>
-              <h1 className="font-display text-[24px] font-semibold leading-[1.15] tracking-[-0.025em]">
+              <h1 className="font-display text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[24px]">
                 {job.title}
               </h1>
             </div>
@@ -87,7 +87,7 @@ export function JobDetailView({
             <span>{job.seniority}</span>
           </div>
         </div>
-        <div className="flex flex-shrink-0 items-center gap-2">
+        <div className="flex flex-shrink-0 flex-wrap items-center gap-2">
           <Button variant="outline" size="sm">
             <Bookmark size={13} aria-hidden /> Save
           </Button>
@@ -101,7 +101,7 @@ export function JobDetailView({
       </div>
 
       {/* Two columns */}
-      <div className="mt-7 grid grid-cols-2 gap-6">
+      <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* LEFT */}
         <div className="flex flex-col gap-4">
           {/* Why this match */}
@@ -219,14 +219,14 @@ export function JobDetailView({
                   </div>
                 </div>
 
-                <div className="mb-3.5 flex items-center gap-2">
+                <div className="mb-3.5 flex flex-wrap items-center gap-2">
                   <Button variant="default" size="sm">
                     <Sparkles size={13} aria-hidden /> Regenerate
                   </Button>
                   <Button variant="outline" size="sm">
                     <Download size={13} aria-hidden /> Download DOCX
                   </Button>
-                  <span className="ml-auto text-[12px] text-text-faint">
+                  <span className="text-[12px] text-text-faint sm:ml-auto">
                     {changedCount} of {resumeDiff.bullets.length} bullets
                     changed
                   </span>
@@ -238,7 +238,7 @@ export function JobDetailView({
                       key={i}
                       className="overflow-hidden rounded-md border border-border"
                     >
-                      <div className="grid grid-cols-2 gap-px bg-border">
+                      <div className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2">
                         <div
                           className={cn(
                             "bg-background px-3.5 py-3 text-[13px] leading-[1.5]",
@@ -279,14 +279,14 @@ export function JobDetailView({
               </TabsContent>
 
               <TabsContent value="cover" className="mt-4">
-                <div className="mb-3 flex items-center gap-2">
+                <div className="mb-3 flex flex-wrap items-center gap-2">
                   <Button variant="default" size="sm">
                     <Sparkles size={13} aria-hidden /> Regenerate
                   </Button>
                   <Button variant="outline" size="sm">
                     <Download size={13} aria-hidden /> Download
                   </Button>
-                  <span className="ml-auto text-[12px] text-text-faint tabular-nums">
+                  <span className="text-[12px] text-text-faint tabular-nums sm:ml-auto">
                     {coverDraft.length} chars
                   </span>
                 </div>

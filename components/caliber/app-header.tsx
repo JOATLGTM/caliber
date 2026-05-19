@@ -12,9 +12,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { MobileSidebar } from "./mobile-sidebar";
 import { ThemeToggle } from "./theme-toggle";
 
-export function AppHeader() {
+interface AppHeaderProps {
+  applicationsCount?: number;
+}
+
+export function AppHeader({ applicationsCount }: AppHeaderProps) {
   const initials = USER_PROFILE.name
     .split(" ")
     .map((s) => s[0])
@@ -23,10 +28,23 @@ export function AppHeader() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-10 flex items-center gap-3 border-b border-border bg-background/85 px-8 py-3.5 backdrop-blur">
+    <header className="sticky top-0 z-10 flex items-center gap-2 border-b border-border bg-background/85 px-4 py-3.5 backdrop-blur md:gap-3 md:px-8">
+      <MobileSidebar applicationsCount={applicationsCount} />
+
+      {/* Mobile: compact icon-only search trigger */}
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label="Search"
+        className="h-8 w-8 sm:hidden"
+      >
+        <Search size={15} />
+      </Button>
+
+      {/* sm+: full search button */}
       <button
         type="button"
-        className="flex h-8 max-w-[480px] flex-1 items-center gap-2 rounded-md border border-border bg-bg-elev px-3 text-left text-[13px] text-text-faint transition-colors hover:border-border-strong"
+        className="hidden h-8 max-w-[480px] flex-1 items-center gap-2 rounded-md border border-border bg-bg-elev px-3 text-left text-[13px] text-text-faint transition-colors hover:border-border-strong sm:flex"
         aria-label="Search"
       >
         <Search size={14} />

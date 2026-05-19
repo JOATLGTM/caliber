@@ -38,17 +38,17 @@ export function JobCard({
   onDismiss,
 }: JobCardProps) {
   const showWhy = density !== "dense";
+  const href = `/jobs/${job.id}`;
 
   return (
-    <Link
-      href={`/jobs/${job.id}`}
+    <article
       className={cn(
-        "group relative grid grid-cols-[1fr_auto] gap-6 rounded-lg border border-border bg-background transition-colors duration-150",
-        "hover:border-border-strong hover:bg-bg-elev",
+        "group relative grid grid-cols-1 gap-4 rounded-lg border border-border bg-background transition-colors duration-150 sm:grid-cols-[1fr_auto] sm:gap-6",
+        "hover:border-border-strong hover:bg-bg-elev focus-within:border-border-strong",
         padding[density],
       )}
     >
-      <div className="min-w-0">
+      <div className="order-2 min-w-0 sm:order-1">
         <div className="mb-1 flex items-center gap-3">
           <div className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-md border border-border bg-bg-elev-2 font-display text-sm font-semibold tracking-[-0.01em] text-text">
             {job.company.slice(0, 1)}
@@ -61,7 +61,13 @@ export function JobCard({
                 titleSize[density],
               )}
             >
-              {job.title}
+              {/* Stretched link: its ::after covers the whole card so clicks anywhere navigate. */}
+              <Link
+                href={href}
+                className="after:absolute after:inset-0 after:rounded-lg after:content-[''] focus:outline-none"
+              >
+                {job.title}
+              </Link>
             </h3>
           </div>
         </div>
@@ -90,12 +96,10 @@ export function JobCard({
           </ul>
         )}
 
-        <div
-          className="mt-3.5 flex gap-1.5"
-          onClick={(e) => e.stopPropagation()}
-        >
+        {/* relative z-10 lifts interactive controls above the stretched link's ::after pseudo */}
+        <div className="relative z-10 mt-3.5 flex flex-wrap gap-1.5">
           <Button asChild size="sm" variant="default">
-            <Link href={`/jobs/${job.id}`}>View &amp; tailor</Link>
+            <Link href={href}>View &amp; tailor</Link>
           </Button>
           <Button
             size="sm"
@@ -103,6 +107,7 @@ export function JobCard({
             type="button"
             onClick={(e) => {
               e.preventDefault();
+              e.stopPropagation();
               onSave?.(job);
             }}
           >
@@ -115,6 +120,7 @@ export function JobCard({
             type="button"
             onClick={(e) => {
               e.preventDefault();
+              e.stopPropagation();
               onDismiss?.(job);
             }}
           >
@@ -123,7 +129,9 @@ export function JobCard({
         </div>
       </div>
 
-      <MatchScoreBadge score={job.matchScore} treatment={scoreTreatment} />
-    </Link>
+      <div className="order-1 sm:order-2">
+        <MatchScoreBadge score={job.matchScore} treatment={scoreTreatment} />
+      </div>
+    </article>
   );
 }

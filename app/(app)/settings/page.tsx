@@ -57,8 +57,8 @@ export default function SettingsPage() {
     theme === "light" || theme === "dark" ? theme : "system";
 
   return (
-    <div className="mx-auto w-full max-w-[920px] px-8 pb-[60px] pt-7">
-      <h1 className="font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.025em]">
+    <div className="mx-auto w-full max-w-[920px] px-4 pb-[60px] pt-7 md:px-8">
+      <h1 className="font-display text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[26px]">
         Settings
       </h1>
 
@@ -77,11 +77,11 @@ export default function SettingsPage() {
                 className="h-9 text-[13.5px]"
               />
             </div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-stretch gap-2 sm:items-center">
               <Button variant="outline" size="sm">
                 Change password
               </Button>
-              <div className="flex items-center gap-3 rounded-md border border-border px-3 py-1.5">
+              <div className="flex flex-1 items-center justify-between gap-3 rounded-md border border-border px-3 py-1.5 sm:flex-initial">
                 <div>
                   <div className="text-[13px] font-medium">
                     Two-factor authentication
@@ -137,7 +137,7 @@ export default function SettingsPage() {
           <h2 className="font-display text-[18px] font-semibold tracking-[-0.018em]">
             Subscription
           </h2>
-          <div className="mt-4 flex items-center justify-between gap-4 rounded-md border border-border bg-bg-elev p-3.5">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-md border border-border bg-bg-elev p-3.5">
             <div>
               <div className="text-[13px] font-medium">Pro</div>
               <div className="text-[12px] text-text-faint">

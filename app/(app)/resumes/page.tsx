@@ -16,10 +16,10 @@ export default function ResumesPage() {
   const tailored = RESUMES.filter((r) => !r.isBase);
 
   return (
-    <div className="w-full max-w-[1200px] px-8 pb-[60px] pt-7">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.025em]">
+    <div className="w-full max-w-[1200px] px-4 pb-[60px] pt-7 md:px-8">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="font-display text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[26px]">
             Resumes
           </h1>
           <p className="mt-1.5 text-[14px] text-text-muted">
@@ -77,23 +77,33 @@ export default function ResumesPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Job title</TableHead>
-              <TableHead>Company</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead>Match</TableHead>
-              <TableHead className="w-[140px] text-right">Actions</TableHead>
+              <TableHead className="hidden sm:table-cell">Company</TableHead>
+              <TableHead className="hidden md:table-cell">Created</TableHead>
+              <TableHead className="hidden sm:table-cell">Match</TableHead>
+              <TableHead className="w-[100px] text-right md:w-[140px]">
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {tailored.map((r) => (
               <TableRow key={r.id}>
                 <TableCell className="font-medium text-text">
-                  {r.jobTitle}
+                  <div>{r.jobTitle}</div>
+                  <div className="mt-0.5 text-[12px] font-normal text-text-muted sm:hidden">
+                    {r.company} · {shortDate(r.updatedAt)}
+                    {r.matchScoreAtTime != null && (
+                      <> · {r.matchScoreAtTime}% match</>
+                    )}
+                  </div>
                 </TableCell>
-                <TableCell className="text-text-muted">{r.company}</TableCell>
-                <TableCell className="text-text-muted">
+                <TableCell className="hidden text-text-muted sm:table-cell">
+                  {r.company}
+                </TableCell>
+                <TableCell className="hidden text-text-muted md:table-cell">
                   {shortDate(r.updatedAt)}
                 </TableCell>
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   {r.matchScoreAtTime != null && (
                     <MatchScoreBadge
                       score={r.matchScoreAtTime}
@@ -103,7 +113,7 @@ export default function ResumesPage() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center justify-end gap-1">
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
                       View
                     </Button>
                     <Button

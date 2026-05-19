@@ -25,9 +25,7 @@ interface AppSidebarProps {
   applicationsCount?: number;
 }
 
-export function AppSidebar({ applicationsCount }: AppSidebarProps) {
-  const pathname = usePathname();
-
+function buildSections(applicationsCount?: number) {
   const workspace: NavItem[] = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     {
@@ -45,6 +43,16 @@ export function AppSidebar({ applicationsCount }: AppSidebarProps) {
     { href: "/settings", label: "Settings", icon: Settings },
   ];
 
+  return { workspace, account };
+}
+
+export function SidebarBody({
+  applicationsCount,
+  onNavigate,
+}: AppSidebarProps & { onNavigate?: () => void }) {
+  const pathname = usePathname();
+  const { workspace, account } = buildSections(applicationsCount);
+
   const initials = USER_PROFILE.name
     .split(" ")
     .map((s) => s[0])
@@ -53,16 +61,27 @@ export function AppSidebar({ applicationsCount }: AppSidebarProps) {
     .toUpperCase();
 
   return (
-    <aside className="sticky top-0 flex h-screen w-[240px] flex-col gap-[18px] border-r border-border bg-background px-3.5 py-[18px]">
+    <div className="flex h-full flex-col gap-[18px] px-3.5 py-[18px]">
       <Link
         href="/dashboard"
+        onClick={onNavigate}
         className="px-2 py-1 font-display text-[18px] font-semibold tracking-[-0.025em]"
       >
         Caliber
       </Link>
 
-      <NavSection label="Workspace" items={workspace} pathname={pathname} />
-      <NavSection label="Account" items={account} pathname={pathname} />
+      <NavSection
+        label="Workspace"
+        items={workspace}
+        pathname={pathname}
+        onNavigate={onNavigate}
+      />
+      <NavSection
+        label="Account"
+        items={account}
+        pathname={pathname}
+        onNavigate={onNavigate}
+      />
 
       <div className="mt-auto flex items-center gap-2.5 rounded-md border border-border p-2.5">
         <div className="grid h-7 w-7 flex-shrink-0 place-items-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">
@@ -77,6 +96,14 @@ export function AppSidebar({ applicationsCount }: AppSidebarProps) {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function AppSidebar({ applicationsCount }: AppSidebarProps) {
+  return (
+    <aside className="sticky top-0 hidden h-screen w-[240px] border-r border-border bg-background md:block">
+      <SidebarBody applicationsCount={applicationsCount} />
     </aside>
   );
 }
@@ -85,10 +112,12 @@ function NavSection({
   label,
   items,
   pathname,
+  onNavigate,
 }: {
   label: string;
   items: NavItem[];
   pathname: string;
+  onNavigate?: () => void;
 }) {
   return (
     <div className="flex flex-col gap-px">
@@ -102,6 +131,7 @@ function NavSection({
           <Link
             key={item.href}
             href={item.href}
+            onClick={onNavigate}
             className={cn(
               "flex items-center gap-2.5 rounded-sm px-2 py-1.5 text-[13.5px] transition-colors",
               active

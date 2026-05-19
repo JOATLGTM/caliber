@@ -44,7 +44,6 @@ export default function ProfilePage() {
   }
 
   function save() {
-    // eslint-disable-next-line no-console
     console.log("profile.save", {
       name,
       email,
@@ -61,8 +60,8 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[920px] px-8 pb-[60px] pt-7">
-      <h1 className="font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.025em]">
+    <div className="mx-auto w-full max-w-[920px] px-4 pb-[60px] pt-7 md:px-8">
+      <h1 className="font-display text-[22px] font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[26px]">
         Profile
       </h1>
       <p className="mt-1.5 text-[14px] text-text-muted">
@@ -75,7 +74,7 @@ export default function ProfilePage() {
           <h2 className="font-display text-[18px] font-semibold tracking-[-0.018em]">
             Personal info
           </h2>
-          <div className="mt-4 grid grid-cols-2 gap-3.5">
+          <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <Field label="Name" value={name} onChange={setName} />
             <Field label="Email" value={email} onChange={setEmail} type="email" />
             <Field label="Phone" value={phone} onChange={setPhone} />
@@ -121,7 +120,7 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3.5">
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               <Field
                 label="Salary minimum"
                 value={salaryMin}

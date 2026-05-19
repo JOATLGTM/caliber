@@ -48,13 +48,13 @@ export function MatchScoreBadge({
   return (
     <div
       className={cn(
-        "flex min-w-[130px] flex-col items-end justify-between text-right",
+        "flex min-w-[130px] flex-row items-baseline gap-2 text-left sm:flex-col sm:items-end sm:justify-between sm:gap-0 sm:text-right",
         className,
       )}
     >
       <div
         className={cn(
-          "font-display text-[56px] font-semibold leading-none tracking-[-0.04em] tabular-nums",
+          "font-display text-[40px] font-semibold leading-none tracking-[-0.04em] tabular-nums sm:text-[56px]",
           tone[klass],
         )}
       >
@@ -63,7 +63,7 @@ export function MatchScoreBadge({
           %
         </sup>
       </div>
-      <div className="mt-1 text-[11px] uppercase tracking-[0.04em] text-text-faint">
+      <div className="text-[11px] uppercase tracking-[0.04em] text-text-faint sm:mt-1">
         match
       </div>
     </div>
