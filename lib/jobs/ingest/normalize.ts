@@ -25,6 +25,8 @@ export interface IngestJobRow {
   job_source_id: string;
 }
 
+const MAX_SALARY_MIN = 2_000_000;
+
 export function canonicalToIngestRow(
   job: CanonicalIngestJob,
   jobSourceId: string,
@@ -37,7 +39,7 @@ export function canonicalToIngestRow(
     location: job.location,
     work_mode: job.workMode,
     salary: job.salary,
-    salary_min: job.salaryMin,
+    salary_min: Math.min(Math.max(0, job.salaryMin), MAX_SALARY_MIN),
     match_score: 0,
     posted_at: job.postedAt,
     seniority: job.seniority,

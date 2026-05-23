@@ -1,5 +1,6 @@
 "use server";
 
+import { after } from "next/server";
 import { revalidatePath } from "next/cache";
 import {
   createSignedUrlForResume,
@@ -7,6 +8,7 @@ import {
   uploadBaseResume,
   type UploadedResume,
 } from "@/lib/db/resume-uploads";
+import { recomputeMatchesForUser } from "@/lib/db/match-sync";
 
 export async function uploadBaseResumeAction(
   formData: FormData,
@@ -22,7 +24,14 @@ export async function uploadBaseResumeAction(
     revalidatePath("/resumes");
     revalidatePath("/onboarding");
     revalidatePath("/profile");
-    revalidatePath("/dashboard");
+    after(async () => {
+      try {
+        await recomputeMatchesForUser();
+        revalidatePath("/dashboard");
+      } catch (e) {
+        console.error("[uploadBaseResumeAction] match recompute failed", e);
+      }
+    });
     return { ok: true, resume };
   } catch (e) {
     return {

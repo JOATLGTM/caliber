@@ -21,13 +21,21 @@ export const CURATED_JOB_SOURCES: CuratedJobSource[] = [
   { company: "Linear", provider: "ashby", boardToken: "linear" },
   { company: "OpenAI", provider: "ashby", boardToken: "openai" },
   { company: "Ramp", provider: "ashby", boardToken: "ramp" },
+  { company: "Notion", provider: "ashby", boardToken: "notion" },
+  { company: "Vercel", provider: "greenhouse", boardToken: "vercel" },
+  { company: "Databricks", provider: "greenhouse", boardToken: "databricks" },
+  { company: "GitLab", provider: "greenhouse", boardToken: "gitlab" },
+  { company: "Robinhood", provider: "greenhouse", boardToken: "robinhood" },
+  { company: "MongoDB", provider: "greenhouse", boardToken: "mongodb" },
+  { company: "Netflix", provider: "lever", boardToken: "netflix" },
+  { company: "Block", provider: "greenhouse", boardToken: "block" },
+  { company: "Brex", provider: "greenhouse", boardToken: "brex" },
+  { company: "Instacart", provider: "greenhouse", boardToken: "instacart" },
 ];
-
-let sourcesSeeded = false;
 
 /** Upsert curated job_sources rows (idempotent). */
 export async function ensureJobSourcesCatalog() {
-  if (!isSupabaseConfigured() || sourcesSeeded) return;
+  if (!isSupabaseConfigured()) return;
 
   const admin = createAdminClient();
   const rows = CURATED_JOB_SOURCES.map((s) => ({
@@ -42,5 +50,4 @@ export async function ensureJobSourcesCatalog() {
     .upsert(rows, { onConflict: "provider,board_token" });
 
   if (error) throw error;
-  sourcesSeeded = true;
 }

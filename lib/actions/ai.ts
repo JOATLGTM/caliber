@@ -8,9 +8,9 @@ import {
   generateWhyMatch,
 } from "@/lib/ai/tailor";
 import { computeMatch } from "@/lib/ai/scoring";
-import { postedAtCutoffDate } from "@/lib/jobs/ingest/config";
 import { isAiConfigured } from "@/lib/ai/provider";
 import { requireUser } from "@/lib/db/auth";
+import { recomputeMatchesForUser } from "@/lib/db/match-sync";
 import {
   setUserJobMatch,
   upsertCoverLetter,
@@ -142,63 +142,7 @@ export async function recomputeAllMatchScoresAction(): Promise<
   { ok: true; updated: number } | { ok: false; error: string }
 > {
   try {
-    const [profile, resumeText] = await Promise.all([
-      getProfile(),
-      getResumeText(),
-    ]);
-    const { supabase, user } = await requireUser();
-
-    let jobsQuery = supabase.from("jobs").select("*").eq("is_active", true);
-    if (process.env.SEED_DEMO_DATA === "false") {
-      jobsQuery = jobsQuery.not("source", "is", null);
-    }
-    jobsQuery = jobsQuery.gte("posted_at", postedAtCutoffDate());
-    const { data: jobs, error } = await jobsQuery;
-    if (error) throw error;
-
-    let updated = 0;
-    for (const row of jobs ?? []) {
-      const job = {
-        id: row.id as string,
-        company: row.company as string,
-        title: row.title as string,
-        location: row.location as string,
-        workMode: row.work_mode as "Remote" | "Hybrid" | "Onsite",
-        salary: row.salary as string,
-        salaryMin: row.salary_min as number,
-        matchScore: row.match_score as number,
-        postedAt: row.posted_at as string,
-        seniority: row.seniority as "Entry" | "Mid" | "Senior" | "Staff+",
-        field: row.field as
-          | "software"
-          | "design"
-          | "pm"
-          | "marketing"
-          | "healthcare"
-          | "finance"
-          | "cs",
-        skills: row.skills as string[],
-        niceToHaves: row.nice_to_haves as string[],
-        whyMatch: row.why_match as string[],
-        description: row.description as string,
-        saved: false,
-        dismissed: false,
-      };
-
-      const sig = computeMatch(profile, job, { resumeText });
-      const { error: upError } = await supabase.from("user_jobs").upsert(
-        {
-          user_id: user.id,
-          job_id: job.id,
-          match_score: sig.score,
-          why_match: sig.whyMatch,
-          scored_at: new Date().toISOString(),
-        },
-        { onConflict: "user_id,job_id" },
-      );
-      if (!upError) updated++;
-    }
-
+    const { updated } = await recomputeMatchesForUser();
     revalidatePath("/dashboard");
     return { ok: true, updated };
   } catch (e) {

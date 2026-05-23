@@ -1,7 +1,9 @@
 "use server";
 
+import { after } from "next/server";
 import { revalidatePath } from "next/cache";
 import { saveProfile } from "@/lib/db/profile";
+import { recomputeMatchesForUser } from "@/lib/db/match-sync";
 import type { UserProfile } from "@/lib/mock-data";
 
 export async function saveProfileAction(
@@ -10,7 +12,14 @@ export async function saveProfileAction(
   try {
     await saveProfile(profile);
     revalidatePath("/profile");
-    revalidatePath("/dashboard");
+    after(async () => {
+      try {
+        await recomputeMatchesForUser();
+        revalidatePath("/dashboard");
+      } catch (e) {
+        console.error("[saveProfileAction] match recompute failed", e);
+      }
+    });
     return { ok: true };
   } catch (e) {
     return {

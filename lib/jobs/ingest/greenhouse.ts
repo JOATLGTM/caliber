@@ -13,6 +13,25 @@ import { extractSkillsFromText } from "./skills";
 
 const BASE = "https://boards-api.greenhouse.io/v1/boards";
 
+function greenhouseCompText(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (typeof value === "number") return String(value);
+  if (value && typeof value === "object") {
+    const v = value as {
+      min_value?: string | number;
+      max_value?: string | number;
+      unit?: string;
+    };
+    const unit = v.unit ?? "USD";
+    const min = v.min_value != null ? String(v.min_value) : "";
+    const max = v.max_value != null ? String(v.max_value) : "";
+    if (min && max && min !== max) return `${unit} ${min}–${max}`;
+    if (min) return `${unit} ${min}`;
+    if (max) return `${unit} ${max}`;
+  }
+  return "";
+}
+
 interface GreenhouseJob {
   id: number;
   title: string;
@@ -54,9 +73,11 @@ export async function fetchGreenhouseJobs(
     const department =
       job.departments?.map((d) => d.name).filter(Boolean).join(", ") ?? "";
     const metaSalary =
-      job.metadata?.find((m) =>
-        /salary|compensation/i.test(m.name ?? ""),
-      )?.value ?? "";
+      greenhouseCompText(
+        job.metadata?.find((m) =>
+          /salary|compensation/i.test(m.name ?? ""),
+        )?.value,
+      );
     const { salary, salaryMin } = parseSalaryFromText(
       metaSalary || description.slice(0, 500),
     );

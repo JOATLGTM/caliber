@@ -52,11 +52,13 @@ export function inferField(
 }
 
 /** Parse salary display string and minimum annual USD (best effort). */
-export function parseSalaryFromText(text: string): {
+export function parseSalaryFromText(text: unknown): {
   salary: string;
   salaryMin: number;
 } {
-  const cleaned = text.replace(/\s+/g, " ").trim();
+  const raw =
+    typeof text === "string" ? text : text != null ? String(text) : "";
+  const cleaned = raw.replace(/\s+/g, " ").trim();
   if (!cleaned) return { salary: "", salaryMin: 0 };
 
   const range = cleaned.match(
@@ -66,6 +68,7 @@ export function parseSalaryFromText(text: string): {
     const low = parseMoneyToken(range[1], cleaned);
     const high = parseMoneyToken(range[2], cleaned);
     const salaryMin = Math.min(low, high) || low || high;
+    if (salaryMin > 2_000_000) return { salary: cleaned.slice(0, 80), salaryMin: 0 };
     return {
       salary: formatSalaryRange(salaryMin, Math.max(low, high)),
       salaryMin,
@@ -75,6 +78,7 @@ export function parseSalaryFromText(text: string): {
   const single = cleaned.match(/\$?\s*([\d,]+)\s*k?\+?/i);
   if (single) {
     const n = parseMoneyToken(single[1], cleaned);
+    if (n > 2_000_000) return { salary: cleaned.slice(0, 80), salaryMin: 0 };
     return { salary: formatSalaryK(n), salaryMin: n };
   }
 

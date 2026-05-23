@@ -121,7 +121,15 @@ export async function runJobIngestion(): Promise<IngestRunResult> {
 
       sourcesProcessed++;
     } catch (e) {
-      const message = e instanceof Error ? e.message : String(e);
+      const message =
+        e instanceof Error
+          ? e.message
+          : typeof e === "object" &&
+              e !== null &&
+              "message" in e &&
+              typeof (e as { message: unknown }).message === "string"
+            ? (e as { message: string }).message
+            : JSON.stringify(e);
       errors.push({
         company: source.company,
         provider: source.provider,
