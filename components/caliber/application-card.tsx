@@ -1,30 +1,24 @@
+import Link from "next/link";
+import { GripVertical } from "lucide-react";
 import type { Application } from "@/lib/mock-data";
 import { shortDate } from "@/lib/mock-data";
+import { jobDetailPath } from "@/lib/jobs/paths";
 import { cn } from "@/lib/utils";
 
 interface ApplicationCardProps {
   application: Application;
   className?: string;
+  dragHandleProps?: React.ComponentProps<"button">;
 }
 
-export function ApplicationCard({
-  application: app,
-  className,
-}: ApplicationCardProps) {
+function CardBody({ app }: { app: Application }) {
   return (
-    <div
-      className={cn(
-        "cursor-grab rounded-md border border-border bg-background p-3 transition-all duration-150",
-        "hover:-translate-y-px hover:border-border-strong hover:shadow-[var(--shadow-token-sm)]",
-        "active:cursor-grabbing",
-        className,
-      )}
-    >
+    <>
       <div className="text-[12px] text-text-faint">{app.company}</div>
-      <div className="mt-0.5 mb-2 text-[13px] font-medium leading-tight">
+      <div className="mt-0.5 mb-2 text-[13px] font-medium leading-tight text-text">
         {app.title}
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <span className="text-[11px] text-text-faint">
           {app.appliedAt === "—"
             ? "Not applied"
@@ -34,7 +28,7 @@ export function ApplicationCard({
           {app.matchScore}%
         </span>
       </div>
-      {app.outcome && (
+      {app.outcome ? (
         <div className="mt-2">
           <span
             className={cn(
@@ -47,7 +41,60 @@ export function ApplicationCard({
             {app.outcome === "Won" ? "Offer accepted" : "Closed lost"}
           </span>
         </div>
+      ) : null}
+    </>
+  );
+}
+
+export function ApplicationCard({
+  application: app,
+  className,
+  dragHandleProps,
+}: ApplicationCardProps) {
+  const href = app.jobId ? jobDetailPath(app.jobId) : null;
+
+  const shellClass = cn(
+    "flex items-stretch overflow-hidden rounded-md border border-border bg-background transition-all duration-150",
+    href &&
+      "hover:-translate-y-px hover:border-border-strong hover:shadow-[var(--shadow-token-sm)]",
+    className,
+  );
+
+  const dragHandle = dragHandleProps ? (
+    <button
+      type="button"
+      data-drag-handle
+      aria-label="Drag to move column"
+      className={cn(
+        "flex shrink-0 cursor-grab touch-none items-center border-l border-border px-1.5 text-text-faint",
+        "hover:bg-bg-elev-2 hover:text-text active:cursor-grabbing",
       )}
-    </div>
+      {...dragHandleProps}
+    >
+      <GripVertical size={14} aria-hidden />
+    </button>
+  ) : null;
+
+  if (href) {
+    return (
+      <article className={shellClass}>
+        <Link
+          href={href}
+          className="min-w-0 flex-1 p-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/50"
+        >
+          <CardBody app={app} />
+        </Link>
+        {dragHandle}
+      </article>
+    );
+  }
+
+  return (
+    <article className={shellClass}>
+      <div className="min-w-0 flex-1 p-3">
+        <CardBody app={app} />
+      </div>
+      {dragHandle}
+    </article>
   );
 }

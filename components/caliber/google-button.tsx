@@ -1,8 +1,29 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 
-export function GoogleButton({ children }: { children: React.ReactNode }) {
+interface GoogleButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  type?: "button" | "submit";
+}
+
+export function GoogleButton({
+  children,
+  onClick,
+  disabled,
+  type = "button",
+}: GoogleButtonProps) {
   return (
-    <Button variant="outline" size="lg" className="w-full justify-center">
+    <Button
+      type={type}
+      variant="outline"
+      size="lg"
+      className="w-full justify-center"
+      onClick={onClick}
+      disabled={disabled}
+    >
       <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden>
         <path
           fill="#4285F4"

@@ -251,7 +251,7 @@ export default function LandingPage() {
             Full pricing →
           </Link>
         </div>
-        <PricingGrid />
+        <PricingGrid compact showSeeAll />
       </section>
 
       {/* FAQ */}

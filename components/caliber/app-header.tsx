@@ -1,8 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Bell, LogOut, Search, Settings, User } from "lucide-react";
+import { signOut } from "@/lib/auth/actions";
 import { USER_PROFILE } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/client";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,6 +16,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  CommandPalette,
+  useCommandPaletteShortcut,
+} from "./command-palette";
 import { MobileSidebar } from "./mobile-sidebar";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -20,7 +28,26 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ applicationsCount }: AppHeaderProps) {
-  const initials = USER_PROFILE.name
+  const [displayName, setDisplayName] = useState(USER_PROFILE.name);
+  const [displayEmail, setDisplayEmail] = useState(USER_PROFILE.email);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  useCommandPaletteShortcut(setPaletteOpen);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured()) return;
+
+    const supabase = createClient();
+    void supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!user) return;
+      const metaName =
+        (user.user_metadata?.full_name as string | undefined) ??
+        (user.user_metadata?.name as string | undefined);
+      if (metaName) setDisplayName(metaName);
+      if (user.email) setDisplayEmail(user.email);
+    });
+  }, []);
+
+  const initials = displayName
     .split(" ")
     .map((s) => s[0])
     .join("")
@@ -37,6 +64,7 @@ export function AppHeader({ applicationsCount }: AppHeaderProps) {
         size="icon"
         aria-label="Search"
         className="h-8 w-8 sm:hidden"
+        onClick={() => setPaletteOpen(true)}
       >
         <Search size={15} />
       </Button>
@@ -44,6 +72,7 @@ export function AppHeader({ applicationsCount }: AppHeaderProps) {
       {/* sm+: full search button */}
       <button
         type="button"
+        onClick={() => setPaletteOpen(true)}
         className="hidden h-8 max-w-[480px] flex-1 items-center gap-2 rounded-md border border-border bg-bg-elev px-3 text-left text-[13px] text-text-faint transition-colors hover:border-border-strong sm:flex"
         aria-label="Search"
       >
@@ -55,6 +84,8 @@ export function AppHeader({ applicationsCount }: AppHeaderProps) {
           ⌘K
         </span>
       </button>
+
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
 
       <div className="ml-auto flex items-center gap-2">
         <Button
@@ -77,9 +108,9 @@ export function AppHeader({ applicationsCount }: AppHeaderProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="min-w-[200px]">
             <DropdownMenuLabel>
-              <div className="text-[13px] font-medium">{USER_PROFILE.name}</div>
+              <div className="text-[13px] font-medium">{displayName}</div>
               <div className="text-[11.5px] font-normal text-text-faint">
-                {USER_PROFILE.email}
+                {displayEmail}
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -95,9 +126,14 @@ export function AppHeader({ applicationsCount }: AppHeaderProps) {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/">
-                <LogOut size={14} /> Sign out
-              </Link>
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  className="flex w-full cursor-pointer items-center gap-2"
+                >
+                  <LogOut size={14} /> Sign out
+                </button>
+              </form>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

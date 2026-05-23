@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
   Check,
   FileText,
+  Loader2,
   Upload,
 } from "lucide-react";
 import { ChipMulti } from "@/components/caliber/chip-multi";
@@ -14,6 +15,7 @@ import { SalarySlider } from "@/components/caliber/salary-slider";
 import { Segmented } from "@/components/caliber/segmented";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { uploadBaseResumeAction } from "@/lib/actions/resume-upload";
 import { cn } from "@/lib/utils";
 
 type WorkMode = "Remote" | "Hybrid" | "Onsite";
@@ -38,16 +40,12 @@ export default function OnboardingPage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [resumeName, setResumeName] = useState<string | null>(null);
-  const [roles, setRoles] = useState<string[]>([
-    "Senior Backend Engineer",
-    "Staff Engineer",
-  ]);
-  const [locations, setLocations] = useState<string[]>([
-    "San Francisco",
-    "Remote (US)",
-  ]);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadPending, startUpload] = useTransition();
+  const [roles, setRoles] = useState<string[]>([]);
+  const [locations, setLocations] = useState<string[]>([]);
   const [workMode, setWorkMode] = useState<WorkMode>("Remote");
-  const [experience, setExperience] = useState<Experience>("Senior");
+  const [experience, setExperience] = useState<Experience>("Mid");
   const fileInput = useRef<HTMLInputElement>(null);
 
   function next() {
@@ -61,7 +59,22 @@ export default function OnboardingPage() {
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
-    if (f) setResumeName(f.name);
+    if (!f) return;
+
+    setUploadError(null);
+    setResumeName(f.name);
+
+    const formData = new FormData();
+    formData.append("file", f);
+
+    startUpload(async () => {
+      const result = await uploadBaseResumeAction(formData);
+      if (!result.ok) {
+        setUploadError(result.error);
+        setResumeName(null);
+        if (fileInput.current) fileInput.current.value = "";
+      }
+    });
   }
 
   return (
@@ -132,19 +145,32 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={() => fileInput.current?.click()}
-            className="mt-4 w-full rounded-lg border border-dashed border-border-strong bg-bg-elev p-8 text-center text-[13.5px] text-text-muted transition-colors hover:bg-bg-elev-2 sm:p-12"
+            disabled={uploadPending}
+            className="mt-4 w-full rounded-lg border border-dashed border-border-strong bg-bg-elev p-8 text-center text-[13.5px] text-text-muted transition-colors hover:bg-bg-elev-2 disabled:cursor-not-allowed disabled:opacity-70 sm:p-12"
           >
-            {resumeName ? (
+            {uploadPending ? (
+              <>
+                <Loader2
+                  size={22}
+                  aria-hidden
+                  className="mx-auto mb-2.5 block animate-spin text-text"
+                />
+                <div>
+                  <strong className="font-medium text-text">Uploading…</strong>
+                </div>
+                <div className="mt-1.5 text-[12px] text-text-faint">
+                  {resumeName}
+                </div>
+              </>
+            ) : resumeName ? (
               <>
                 <FileText
                   size={22}
                   aria-hidden
-                  className="mx-auto mb-2.5 block text-text"
+                  className="mx-auto mb-2.5 block text-good"
                 />
                 <div>
-                  <strong className="font-medium text-text">
-                    Uploaded:
-                  </strong>{" "}
+                  <strong className="font-medium text-text">Uploaded:</strong>{" "}
                   {resumeName}
                 </div>
                 <div className="mt-1.5 text-[12px] text-text-faint">
@@ -178,6 +204,15 @@ export default function OnboardingPage() {
             className="hidden"
           />
 
+          {uploadError && (
+            <p
+              role="alert"
+              className="mt-3 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-[12.5px] text-destructive"
+            >
+              {uploadError}
+            </p>
+          )}
+
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <button
               type="button"
@@ -187,10 +222,10 @@ export default function OnboardingPage() {
               Skip for now
             </button>
             <div className="flex gap-2">
-              <Button variant="outline" onClick={back}>
+              <Button variant="outline" onClick={back} disabled={uploadPending}>
                 <ArrowLeft size={13} aria-hidden /> Back
               </Button>
-              <Button onClick={next}>
+              <Button onClick={next} disabled={uploadPending}>
                 Continue <ArrowRight size={13} aria-hidden />
               </Button>
             </div>

@@ -14,13 +14,13 @@
 :root {
   /* surfaces & text — light */
   --bg: #ffffff;
-  --bg-elev: #fafafa;
-  --bg-elev-2: #f5f5f5;
-  --border-token: #e5e5e5;
-  --border-strong: #d4d4d4;
+  --bg-elev: #f6f6f6;
+  --bg-elev-2: #ededed;
+  --border-token: #e2e2e2;
+  --border-strong: #cccccc;
   --text: #0a0a0a;
-  --text-muted: #525252;
-  --text-faint: #737373;
+  --text-muted: #4a4a4a;
+  --text-faint: #6b6b6b;
 
   /* accent — green */
   --accent-token: #10b981;
@@ -236,4 +236,11 @@
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+}
+
+/* Sonner toast theming: bind to design tokens so light + dark match the app. */
+[data-sonner-toaster] {
+  --normal-bg: var(--bg);
+  --normal-text: var(--text);
+  --normal-border: var(--border-token);
 }

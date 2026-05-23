@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { jobDetailPath } from "@/lib/jobs/paths";
 import { Bookmark, MapPin } from "lucide-react";
 import type { Job } from "@/lib/mock-data";
 import { daysAgo } from "@/lib/mock-data";
+import { formatJobSalaryDisplay } from "@/lib/jobs/salary-display";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MatchScoreBadge } from "./match-score-badge";
@@ -38,7 +40,8 @@ export function JobCard({
   onDismiss,
 }: JobCardProps) {
   const showWhy = density !== "dense";
-  const href = `/jobs/${job.id}`;
+  const href = jobDetailPath(job.id);
+  const salary = formatJobSalaryDisplay(job.salary, job.salaryMin);
 
   return (
     <article
@@ -80,7 +83,13 @@ export function JobCard({
             {job.workMode}
           </span>
           <span className="text-text-faint">·</span>
-          <span className="tabular-nums">{job.salary}</span>
+          <span
+            className={cn(
+              salary.isKnown ? "tabular-nums text-text-muted" : "text-text-faint",
+            )}
+          >
+            {salary.text}
+          </span>
           <span className="text-text-faint">·</span>
           <span>{daysAgo(job.postedAt)}</span>
         </div>

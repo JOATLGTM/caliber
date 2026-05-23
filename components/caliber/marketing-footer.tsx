@@ -13,13 +13,13 @@ export function MarketingFooter() {
         <Link href="/login" className="hover:text-text">
           Login
         </Link>
-        <Link href="#" className="hover:text-text">
+        <Link href="/privacy" className="hover:text-text">
           Privacy
         </Link>
-        <Link href="#" className="hover:text-text">
+        <Link href="/terms" className="hover:text-text">
           Terms
         </Link>
-        <Link href="#" className="hover:text-text">
+        <Link href="mailto:hello@caliber.app" className="hover:text-text">
           Contact
         </Link>
       </div>

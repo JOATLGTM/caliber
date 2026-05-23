@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ToastProvider } from "@/components/toast-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,6 +47,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <ToastProvider />
         </ThemeProvider>
       </body>
     </html>

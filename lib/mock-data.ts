@@ -28,6 +28,8 @@ export interface Job {
   niceToHaves: string[];
   whyMatch: string[];
   description: string;
+  /** Company application page (from ATS ingest). */
+  applyUrl?: string;
   saved: boolean;
   dismissed: boolean;
 }
@@ -42,6 +44,7 @@ export type ApplicationStatus =
 
 export interface Application {
   id: string;
+  jobId?: string | null;
   company: string;
   title: string;
   status: ApplicationStatus;

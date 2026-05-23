@@ -1,0 +1,454 @@
+{
+  "generatedAt": "2026-05-22T17:54:44.972Z",
+  "maxJobAgeDays": 90,
+  "sources": [
+    {
+      "company": "Stripe",
+      "provider": "greenhouse",
+      "boardToken": "stripe",
+      "apiCount": 490,
+      "withinMaxAge": 303,
+      "ageBuckets": {
+        "90d+": 187,
+        "0-7d": 42,
+        "15-30d": 72,
+        "31-90d": 152,
+        "8-14d": 37
+      },
+      "sampleNewest": {
+        "id": 7947074,
+        "title": "AI Specialist, Treasury Finance Operations",
+        "updated_at": "2026-05-22T02:57:03-04:00",
+        "first_published": "2026-05-22T02:57:03-04:00",
+        "content_len": 6313,
+        "days_updated": 0,
+        "days_published": 0
+      },
+      "sampleOldest": {
+        "id": 4921361,
+        "title": "Backend Engineer/API, Payments and Risk",
+        "updated_at": "2026-05-20T16:58:18-04:00",
+        "first_published": "2023-03-21T12:01:12-04:00",
+        "content_len": 4898,
+        "days_updated": 2,
+        "days_published": 1158
+      }
+    },
+    {
+      "company": "Figma",
+      "provider": "greenhouse",
+      "boardToken": "figma",
+      "apiCount": 160,
+      "withinMaxAge": 84,
+      "ageBuckets": {
+        "31-90d": 44,
+        "90d+": 76,
+        "15-30d": 22,
+        "0-7d": 13,
+        "8-14d": 5
+      },
+      "sampleNewest": {
+        "id": 6000248004,
+        "title": "Onboarding Manager, Customer Experience (São Paulo, Brazil)",
+        "updated_at": "2026-05-22T12:23:30-04:00",
+        "first_published": "2026-05-22T12:23:30-04:00",
+        "content_len": 6789,
+        "days_updated": 0,
+        "days_published": 0
+      },
+      "sampleOldest": {
+        "id": 5220003004,
+        "title": "Data Engineer",
+        "updated_at": "2026-04-15T15:32:40-04:00",
+        "first_published": "2024-07-08T12:15:29-04:00",
+        "content_len": 17549,
+        "days_updated": 37,
+        "days_published": 683
+      }
+    },
+    {
+      "company": "Airbnb",
+      "provider": "greenhouse",
+      "boardToken": "airbnb",
+      "apiCount": 237,
+      "withinMaxAge": 164,
+      "ageBuckets": {
+        "31-90d": 82,
+        "0-7d": 25,
+        "15-30d": 32,
+        "8-14d": 25,
+        "90d+": 73
+      },
+      "sampleNewest": {
+        "id": 7946288,
+        "title": "AI Engineer, Community Support Engineering",
+        "updated_at": "2026-05-21T04:58:01-04:00",
+        "first_published": "2026-05-21T04:58:01-04:00",
+        "content_len": 5701,
+        "days_updated": 1,
+        "days_published": 1
+      },
+      "sampleOldest": {
+        "id": 6153760,
+        "title": "Senior Product Program Manager, Roadmap Planning & Program Management ",
+        "updated_at": "2026-03-02T18:09:40-05:00",
+        "first_published": "2024-08-05T13:11:58-04:00",
+        "content_len": 9337,
+        "days_updated": 81,
+        "days_published": 655
+      }
+    },
+    {
+      "company": "Discord",
+      "provider": "greenhouse",
+      "boardToken": "discord",
+      "apiCount": 76,
+      "withinMaxAge": 53,
+      "ageBuckets": {
+        "90d+": 23,
+        "31-90d": 34,
+        "8-14d": 7,
+        "0-7d": 5,
+        "15-30d": 7
+      },
+      "sampleNewest": {
+        "id": 8540239002,
+        "title": "Senior Data Engineer, Analytics",
+        "updated_at": "2026-05-21T12:14:47-04:00",
+        "first_published": "2026-05-21T12:14:16-04:00",
+        "content_len": 6371,
+        "days_updated": 1,
+        "days_published": 1
+      },
+      "sampleOldest": {
+        "id": 7966411002,
+        "title": "Rust/C++ Senior Software Engineer",
+        "updated_at": "2026-05-06T16:46:11-04:00",
+        "first_published": "2025-04-22T19:52:34-04:00",
+        "content_len": 5286,
+        "days_updated": 16,
+        "days_published": 395
+      }
+    },
+    {
+      "company": "Datadog",
+      "provider": "greenhouse",
+      "boardToken": "datadog",
+      "apiCount": 413,
+      "withinMaxAge": 220,
+      "ageBuckets": {
+        "90d+": 193,
+        "31-90d": 137,
+        "15-30d": 40,
+        "0-7d": 27,
+        "8-14d": 16
+      },
+      "sampleNewest": {
+        "id": 7930201,
+        "title": "Coordinator, Business Recruiting (Contract)",
+        "updated_at": "2026-05-22T04:28:57-04:00",
+        "first_published": "2026-05-22T04:28:57-04:00",
+        "content_len": 7635,
+        "days_updated": 0,
+        "days_published": 0
+      },
+      "sampleOldest": {
+        "id": 1497543,
+        "title": "Commercial Account Executive - Boston",
+        "updated_at": "2026-05-15T08:44:57-04:00",
+        "first_published": "2019-04-17T14:46:26-04:00",
+        "content_len": 7275,
+        "days_updated": 7,
+        "days_published": 2592
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "provider": "greenhouse",
+      "boardToken": "cloudflare",
+      "apiCount": 143,
+      "withinMaxAge": 96,
+      "ageBuckets": {
+        "31-90d": 63,
+        "90d+": 47,
+        "8-14d": 10,
+        "15-30d": 17,
+        "0-7d": 6
+      },
+      "sampleNewest": {
+        "id": 7947935,
+        "title": "Senior Account Executive, Start-ups (Austin or Chicago)",
+        "updated_at": "2026-05-21T10:23:43-04:00",
+        "first_published": "2026-05-21T10:23:43-04:00",
+        "content_len": 13298,
+        "days_updated": 1,
+        "days_published": 1
+      },
+      "sampleOldest": {
+        "id": 6199146,
+        "title": "Senior Named Account Executive, Montreal",
+        "updated_at": "2026-05-15T13:01:43-04:00",
+        "first_published": "2024-08-22T18:23:27-04:00",
+        "content_len": 10015,
+        "days_updated": 7,
+        "days_published": 638
+      }
+    },
+    {
+      "company": "Spotify",
+      "provider": "lever",
+      "boardToken": "spotify",
+      "apiCount": 202,
+      "withinMaxAge": 169,
+      "ageBuckets": {
+        "31-90d": 87,
+        "90d+": 33,
+        "8-14d": 29,
+        "0-7d": 11,
+        "15-30d": 42
+      },
+      "sampleNewest": {
+        "id": "4f95d579-dffd-4624-9769-6cf7de0931fb",
+        "title": "Client Engineer II - Core Experience (Formats & Foundations)",
+        "createdAt": 1779356852307,
+        "descriptionPlain_len": 0,
+        "descriptionBodyPlain_len": 0,
+        "lists_count": 3,
+        "days_created": 1
+      },
+      "sampleOldest": {
+        "id": "b21a510b-d838-4654-9cbb-7973e40a4330",
+        "title": "Research Scientist - Personalization",
+        "createdAt": 1743179400936,
+        "descriptionPlain_len": 1363,
+        "descriptionBodyPlain_len": 1363,
+        "lists_count": 3,
+        "days_created": 420
+      }
+    },
+    {
+      "company": "Palantir",
+      "provider": "lever",
+      "boardToken": "palantir",
+      "apiCount": 223,
+      "withinMaxAge": 50,
+      "ageBuckets": {
+        "90d+": 173,
+        "8-14d": 5,
+        "31-90d": 26,
+        "0-7d": 4,
+        "15-30d": 15
+      },
+      "sampleNewest": {
+        "id": "fbdcd64f-651c-4b34-97ef-61419eb7d4e6",
+        "title": "People Relations Specialist",
+        "createdAt": 1779463814753,
+        "descriptionPlain_len": 1076,
+        "descriptionBodyPlain_len": 772,
+        "lists_count": 3,
+        "days_created": 0
+      },
+      "sampleOldest": {
+        "id": "5168e8fd-fec1-4fea-b7a1-81bdaea65850",
+        "title": "Forward Deployed Software Engineer",
+        "createdAt": 1259971200000,
+        "descriptionPlain_len": 2397,
+        "descriptionBodyPlain_len": 2093,
+        "lists_count": 1,
+        "days_created": 6013
+      }
+    },
+    {
+      "company": "Linear",
+      "provider": "ashby",
+      "boardToken": "linear",
+      "apiCount": 23,
+      "withinMaxAge": 10,
+      "ageBuckets": {
+        "90d+": 13,
+        "31-90d": 5,
+        "15-30d": 5
+      },
+      "sampleNewest": {
+        "id": "c7151df1-8c03-4c3b-b46c-becf51b61bcc",
+        "title": "Accounting Lead",
+        "publishedAt": "2026-05-04T15:08:26.617+00:00",
+        "descriptionPlain_len": 4720,
+        "days_published": 18
+      },
+      "sampleOldest": {
+        "id": "d3bc1ced-3ce4-4086-a050-555055dbb1ff",
+        "title": "Senior / Staff Fullstack Engineer",
+        "publishedAt": "2021-04-27T20:13:45.158+00:00",
+        "descriptionPlain_len": 5482,
+        "days_published": 1851
+      }
+    },
+    {
+      "company": "OpenAI",
+      "provider": "ashby",
+      "boardToken": "openai",
+      "apiCount": 680,
+      "withinMaxAge": 425,
+      "ageBuckets": {
+        "31-90d": 186,
+        "90d+": 255,
+        "15-30d": 109,
+        "8-14d": 72,
+        "0-7d": 58
+      },
+      "sampleNewest": {
+        "id": "11c51b12-3ba0-4a7a-a0d2-ed0661324dc3",
+        "title": "Capacity Systems Software Engineer",
+        "publishedAt": "2026-05-22T17:13:50.417+00:00",
+        "descriptionPlain_len": 8956,
+        "days_published": 0
+      },
+      "sampleOldest": {
+        "id": "2560ed50-5535-42b8-b069-9ebc28ce7493",
+        "title": "Researcher, Robustness & Safety Training",
+        "publishedAt": "2023-05-25T04:06:29.356+00:00",
+        "descriptionPlain_len": 5920,
+        "days_published": 1094
+      }
+    },
+    {
+      "company": "Ramp",
+      "provider": "ashby",
+      "boardToken": "ramp",
+      "apiCount": 119,
+      "withinMaxAge": 68,
+      "ageBuckets": {
+        "31-90d": 39,
+        "90d+": 51,
+        "0-7d": 8,
+        "8-14d": 12,
+        "15-30d": 9
+      },
+      "sampleNewest": {
+        "id": "1db75064-e38c-4b21-8310-21471943d0be",
+        "title": "Technical Program Manager",
+        "publishedAt": "2026-05-22T16:15:13.252+00:00",
+        "descriptionPlain_len": 5891,
+        "days_published": 0
+      },
+      "sampleOldest": {
+        "id": "4e64ab86-4e30-403b-b1b9-41dc052570ce",
+        "title": "Software Engineer, Frontend",
+        "publishedAt": "2023-03-09T17:44:00.817+00:00",
+        "descriptionPlain_len": 4327,
+        "days_published": 1170
+      }
+    }
+  ],
+  "database": {
+    "total": 2773,
+    "active": 1641,
+    "inactive": 1132,
+    "bySource": {
+      "greenhouse": 921,
+      "lever": 219,
+      "ashby": 501
+    },
+    "byField": {
+      "cs": 152,
+      "pm": 129,
+      "software": 88,
+      "marketing": 495,
+      "finance": 51,
+      "design": 23,
+      "healthcare": 62
+    },
+    "softwareActive": 112,
+    "softwarePostedLast7Days": 10,
+    "softwarePostedWithinMaxAge": 112,
+    "postedDistribution": {
+      "31-90d": 516,
+      "15-30d": 246,
+      "8-14d": 126,
+      "0-7d": 112
+    },
+    "newest": [
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "ashby",
+        "field": "pm",
+        "company": "Ramp",
+        "id": "ashby:b830aa03-c897-4f7d-80c1-047b529576e1"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "greenhouse",
+        "field": "marketing",
+        "company": "Datadog",
+        "id": "greenhouse:7948501"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "ashby",
+        "field": "finance",
+        "company": "OpenAI",
+        "id": "ashby:db3593d6-ac72-4d3e-b15c-8469e972a99a"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "lever",
+        "field": "marketing",
+        "company": "Palantir",
+        "id": "lever:fbdcd64f-651c-4b34-97ef-61419eb7d4e6"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "ashby",
+        "field": "healthcare",
+        "company": "Ramp",
+        "id": "ashby:77c4bead-5399-4631-91bb-d80c467191ba"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "greenhouse",
+        "field": "marketing",
+        "company": "Datadog",
+        "id": "greenhouse:7930201"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "ashby",
+        "field": "marketing",
+        "company": "Ramp",
+        "id": "ashby:1db75064-e38c-4b21-8310-21471943d0be"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "ashby",
+        "field": "marketing",
+        "company": "OpenAI",
+        "id": "ashby:baa272d8-437b-460b-ba33-e3973b8b1353"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "ashby",
+        "field": "marketing",
+        "company": "Ramp",
+        "id": "ashby:eeaf6a9b-b261-4107-9222-c008732f0755"
+      },
+      {
+        "posted_at": "2026-05-22",
+        "days": 1,
+        "source": "greenhouse",
+        "field": "marketing",
+        "company": "Datadog",
+        "id": "greenhouse:7948503"
+      }
+    ]
+  }
+}

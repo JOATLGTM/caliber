@@ -1,9 +1,13 @@
 import { Download, Mail, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/caliber/empty-state";
-import { COVER_LETTERS, shortDate } from "@/lib/mock-data";
+import { listCoverLetters } from "@/lib/db/cover-letters";
+import { shortDate } from "@/lib/mock-data";
+import { DeleteCoverLetterButton } from "./delete-cover-letter-button";
 
-export default function CoverLettersPage() {
+export default async function CoverLettersPage() {
+  const coverLetters = await listCoverLetters();
+
   return (
     <div className="w-full max-w-[1200px] px-4 pb-[60px] pt-7 md:px-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -12,7 +16,7 @@ export default function CoverLettersPage() {
             Cover letters
           </h1>
           <p className="mt-1.5 text-[14px] text-text-muted">
-            {COVER_LETTERS.length} generated letters.
+            {coverLetters.length} generated letters.
           </p>
         </div>
         <Button size="sm">
@@ -20,7 +24,7 @@ export default function CoverLettersPage() {
         </Button>
       </div>
 
-      {COVER_LETTERS.length === 0 ? (
+      {coverLetters.length === 0 ? (
         <div className="mt-8 rounded-lg border border-border bg-background">
           <EmptyState
             icon={Mail}
@@ -35,7 +39,7 @@ export default function CoverLettersPage() {
         </div>
       ) : (
         <div className="mt-7 grid grid-cols-1 gap-3.5 md:grid-cols-2">
-          {COVER_LETTERS.map((c) => (
+          {coverLetters.map((c) => (
             <article
               key={c.id}
               className="rounded-lg border border-border bg-background p-[18px]"
@@ -68,13 +72,10 @@ export default function CoverLettersPage() {
                 >
                   <Download size={13} aria-hidden />
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="ml-auto text-bad hover:text-bad"
-                >
-                  Delete
-                </Button>
+                <DeleteCoverLetterButton
+                  coverLetterId={c.id}
+                  label={c.company}
+                />
               </div>
             </article>
           ))}
