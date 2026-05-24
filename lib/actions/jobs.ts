@@ -9,6 +9,10 @@ import {
   upsertApplicationForJob,
 } from "@/lib/db/applications";
 import { getJobForUser, setJobDismissed, setJobSaved } from "@/lib/db/jobs";
+import {
+  createManualJob,
+  type ManualJobInput,
+} from "@/lib/db/manual-jobs";
 
 export type SaveJobResult =
   | { ok: true; removedFromPipeline: boolean; pipelineKept: boolean }
@@ -101,6 +105,27 @@ export async function dismissJobAction(
     return {
       ok: false,
       error: e instanceof Error ? e.message : "Failed to dismiss job",
+    };
+  }
+}
+
+export async function addManualJobAction(
+  input: ManualJobInput,
+): Promise<{ ok: true; jobId: string } | { ok: false; error: string }> {
+  try {
+    const jobId = await createManualJob(input);
+    const job = await getJobForUser(jobId);
+    if (job) {
+      await upsertApplicationForJob(job, "Saved");
+    }
+    revalidatePath("/dashboard");
+    revalidatePath("/applications");
+    revalidatePath(jobDetailPath(jobId));
+    return { ok: true, jobId };
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : "Failed to add job",
     };
   }
 }

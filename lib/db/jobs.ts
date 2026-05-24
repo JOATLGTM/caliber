@@ -16,6 +16,7 @@ import { ingestedCatalogOnly } from "./catalog";
 import { requireUser } from "./auth";
 import { getProfile, getResumeText } from "./profile";
 import { rowToJob, type JobListRow, type JobRow, type UserJobRow } from "./mappers";
+import { manualJobOwnerId } from "./manual-job-utils";
 
 export type { JobSortKey };
 
@@ -36,10 +37,11 @@ export interface ListJobsResult {
 
 /** Columns needed for list scoring — omits description/apply_url to keep queries fast. */
 const JOB_LIST_SCORING_SELECT =
-  "id, company, title, location, work_mode, salary, salary_min, match_score, posted_at, seniority, field, skills, nice_to_haves, why_match";
+  "id, company, title, location, work_mode, salary, salary_min, match_score, posted_at, seniority, field, skills, nice_to_haves, why_match, source";
 
 async function fetchActiveJobCandidates(
   supabase: Awaited<ReturnType<typeof requireUser>>["supabase"],
+  userId: string,
   sortBy: JobSortKey,
 ): Promise<JobListRow[]> {
   let q = supabase
@@ -50,6 +52,9 @@ async function fetchActiveJobCandidates(
   if (ingestedCatalogOnly()) {
     q = q.not("source", "is", null);
   }
+
+  // Hide other users' manual jobs without requiring owner_user_id column.
+  q = q.or(`source.neq.manual,raw_payload->>owner_user_id.eq.${userId}`);
 
   q = q.gte("posted_at", postedAtCutoffDate());
 
@@ -113,7 +118,7 @@ export async function buildVisibleJobList(
   const effectiveSkills = mergeProfileSkills(profile.skills, resumeText);
 
   const [jobRows, { data: userJobs, error: ujError }] = await Promise.all([
-    fetchActiveJobCandidates(supabase, sortBy),
+    fetchActiveJobCandidates(supabase, user.id, sortBy),
     supabase
       .from("user_jobs")
       .select("job_id, saved, dismissed, match_score, why_match")
@@ -146,12 +151,16 @@ export async function buildVisibleJobList(
 
   const relevant = scored.filter(
     (j) =>
+      j.id.startsWith("manual:") ||
       j.saved ||
       jobRelevantToProfile(profile, j, effectiveSkills),
   );
 
   const visible = relevant.filter(
-    (j) => j.saved || j.matchScore >= MIN_DISPLAY_MATCH_SCORE,
+    (j) =>
+      j.id.startsWith("manual:") ||
+      j.saved ||
+      j.matchScore >= MIN_DISPLAY_MATCH_SCORE,
   );
 
   return sortJobs(visible, sortBy).slice(0, MAX_DASHBOARD_JOBS);
@@ -190,6 +199,15 @@ export async function getJobForUser(jobId: string): Promise<Job | null> {
 
   if (jobError) throw jobError;
   if (!job) return null;
+
+  const row = job as JobRow & {
+    source?: string | null;
+    owner_user_id?: string | null;
+    raw_payload?: unknown;
+  };
+  if (row.source === "manual" && manualJobOwnerId(row) !== user.id) {
+    return null;
+  }
 
   const { data: userJob, error: ujError } = await supabase
     .from("user_jobs")

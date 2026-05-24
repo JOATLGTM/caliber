@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, ChevronLeft, ChevronRight, Loader2, Plus, Sparkles } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { AddJobDialog } from "@/components/caliber/add-job-dialog";
 import { Chip } from "@/components/caliber/chip";
 import { JobCard } from "@/components/caliber/job-card";
 import { Segmented } from "@/components/caliber/segmented";
@@ -207,9 +208,7 @@ export function DashboardView({
             )}
             {recomputePending ? "Recomputing…" : "Recompute matches"}
           </Button>
-          <Button variant="outline" size="sm">
-            <Plus size={14} aria-hidden /> Add job manually
-          </Button>
+          <AddJobDialog />
         </div>
       </div>
 

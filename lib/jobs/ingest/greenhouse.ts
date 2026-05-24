@@ -13,6 +13,36 @@ import { extractSkillsFromText } from "./skills";
 
 const BASE = "https://boards-api.greenhouse.io/v1/boards";
 
+function parseGreenhouseComp(
+  value: unknown,
+  descriptionFallback: string,
+): { salary: string; salaryMin: number } {
+  if (value && typeof value === "object") {
+    const v = value as {
+      min_value?: string | number;
+      max_value?: string | number;
+      unit?: string;
+    };
+    const minRaw = Number(v.min_value);
+    const maxRaw = Number(v.max_value);
+    if (Number.isFinite(minRaw) && minRaw > 0) {
+      const low = Math.round(minRaw);
+      const high = Number.isFinite(maxRaw) && maxRaw > 0 ? Math.round(maxRaw) : low;
+      const salaryMin = Math.min(low, high);
+      const salaryMax = Math.max(low, high);
+      const unit = v.unit ?? "USD";
+      const salary =
+        salaryMax > salaryMin
+          ? `${unit} ${salaryMin.toLocaleString()}–${salaryMax.toLocaleString()}`
+          : `${unit} ${salaryMin.toLocaleString()}`;
+      return { salary, salaryMin };
+    }
+  }
+
+  const text = greenhouseCompText(value);
+  return parseSalaryFromText(text || descriptionFallback.slice(0, 500));
+}
+
 function greenhouseCompText(value: unknown): string {
   if (typeof value === "string") return value;
   if (typeof value === "number") return String(value);
@@ -72,14 +102,12 @@ export async function fetchGreenhouseJobs(
     const description = htmlToPlainText(job.content ?? "");
     const department =
       job.departments?.map((d) => d.name).filter(Boolean).join(", ") ?? "";
-    const metaSalary =
-      greenhouseCompText(
-        job.metadata?.find((m) =>
-          /salary|compensation/i.test(m.name ?? ""),
-        )?.value,
-      );
-    const { salary, salaryMin } = parseSalaryFromText(
-      metaSalary || description.slice(0, 500),
+    const metaComp = job.metadata?.find((m) =>
+      /salary|compensation/i.test(m.name ?? ""),
+    )?.value;
+    const { salary, salaryMin } = parseGreenhouseComp(
+      metaComp,
+      description,
     );
     const { skills, niceToHaves } = extractSkillsFromText(
       `${job.title} ${description}`,

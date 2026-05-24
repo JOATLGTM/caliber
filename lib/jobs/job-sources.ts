@@ -31,6 +31,10 @@ export const CURATED_JOB_SOURCES: CuratedJobSource[] = [
   { company: "Block", provider: "greenhouse", boardToken: "block" },
   { company: "Brex", provider: "greenhouse", boardToken: "brex" },
   { company: "Instacart", provider: "greenhouse", boardToken: "instacart" },
+  { company: "Asana", provider: "greenhouse", boardToken: "asana" },
+  { company: "HubSpot", provider: "greenhouse", boardToken: "hubspot" },
+  { company: "Twilio", provider: "greenhouse", boardToken: "twilio" },
+  { company: "Scale AI", provider: "greenhouse", boardToken: "scaleai" },
 ];
 
 /** Upsert curated job_sources rows (idempotent). */

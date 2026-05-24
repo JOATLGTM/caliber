@@ -1,10 +1,11 @@
 const MAX_TEXT = 32_000;
 
-/** Extract plain text from an uploaded resume file (PDF only in v1). */
+/** Extract plain text from an uploaded resume file (PDF or DOCX). */
 export async function extractTextFromResume(file: File): Promise<string> {
   const mime = file.type || "";
+  const name = file.name.toLowerCase();
 
-  if (mime === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")) {
+  if (mime === "application/pdf" || name.endsWith(".pdf")) {
     const { PDFParse } = await import("pdf-parse");
     const buffer = Buffer.from(await file.arrayBuffer());
     const parser = new PDFParse({ data: buffer });
@@ -16,6 +17,16 @@ export async function extractTextFromResume(file: File): Promise<string> {
     }
   }
 
-  // DOCX text extraction deferred — skills still merge when resume_text is set elsewhere.
+  if (
+    mime ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+    name.endsWith(".docx")
+  ) {
+    const mammoth = await import("mammoth");
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const result = await mammoth.extractRawText({ buffer });
+    return (result.value ?? "").replace(/\s+/g, " ").trim().slice(0, MAX_TEXT);
+  }
+
   return "";
 }

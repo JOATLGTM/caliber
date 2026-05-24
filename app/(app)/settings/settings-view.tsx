@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { ExtensionSettingsCard } from "@/components/caliber/extension-settings-card";
 import { Segmented } from "@/components/caliber/segmented";
 import {
   openBillingPortalAction,
@@ -268,6 +269,8 @@ export function SettingsView({
             />
           </div>
         </section>
+
+        <ExtensionSettingsCard />
 
         {/* Privacy */}
         <section className="rounded-lg border border-border bg-background p-[22px]">
